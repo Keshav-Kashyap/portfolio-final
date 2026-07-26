@@ -1,44 +1,379 @@
-import React from "react";
+import React, { useState } from "react";
 import SectionHead from "../ui/SectionHead";
 import Reveal from "../ui/Reveal";
 import ChipRow from "../ui/ChipRow";
 import { c, mono, serif } from "../../data/theme";
+import { Award, Briefcase, Calendar, X, Eye } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Experience() {
+  const [showCertificate, setShowCertificate] = useState(false);
+
   return (
-    <section id="experience" style={{ padding: "100px 0", background: c.bgDeep }}>
+    <section id="experience" style={{ padding: "100px 0", background: c.bgDeep, position: "relative" }}>
       <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 32px" }}>
-        <SectionHead index="02" title="Work" em="experience" />
-        <Reveal style={{ borderLeft: `2px solid ${c.moss}`, paddingLeft: 32, display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: 40 }}>
-          <div>
-            <h3 style={{ ...serif, fontSize: 26, fontWeight: 500 }}>Python Automation Developer</h3>
-            <div style={{ color: c.clay, fontWeight: 600, marginTop: 6, fontSize: 15 }}>OnePlaceSolar (OPS)</div>
-            <div style={{ ...mono, fontSize: 12, color: c.inkFaint, marginTop: 10 }}>CURRENT ROLE</div>
+        <SectionHead index="02" title="Career" em="road" />
+
+        <div style={{ position: "relative", marginTop: 60, paddingBottom: 40 }}>
+          {/* The Road Visual Track */}
+          <div
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: 0,
+              bottom: 0,
+              width: 24,
+              background: "#32372A", // Asphalt dark color
+              transform: "translateX(-50%)",
+              borderRadius: 12,
+              border: `2px solid ${c.lineStrong}`,
+              boxShadow: "inset 0 0 10px rgba(0,0,0,0.5)",
+              overflow: "hidden"
+            }}
+            className="kk-road-track"
+          >
+            {/* Dotted/Dashed Road Line */}
+            <div style={{
+              width: 0,
+              height: "100%",
+              borderLeft: "2px dashed #E3B448", // Gold/Yellow road dash
+              margin: "0 auto",
+              opacity: 0.95
+            }} />
           </div>
-          <div>
-            <p style={{ color: c.inkSoft, fontSize: 15, lineHeight: 1.7, marginBottom: 16 }}>
-              Building automation software for the US solar industry — generating the engineering documents required for residential solar installations, at production scale.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              {[
-                "Dynamic PDF generation for solar permit plan sets, built entirely in code rather than templates",
-                "Automated Bill of Materials (BOM) generation using engineering calculation rules",
-                "Image processing and PDF overlay — placing roof layouts, electrical diagrams, and equipment images into generated plans",
-                "Engineering table generation and dynamic template mapping across PV, Battery, and PV+Battery project types",
-                "Flask and FastAPI backends with React interfaces for managing the permit workflow, backed by AWS S3 storage",
-              ].map((item, i) => (
-                <div key={i} style={{ position: "relative", paddingLeft: 20, color: c.inkSoft, fontSize: 15, lineHeight: 1.6 }}>
-                  <span style={{ position: "absolute", left: 0, color: c.gold }}>—</span>
-                  {item}
-                </div>
-              ))}
+
+          {/* Timeline Milestones */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 80, position: "relative" }}>
+
+            {/* Milestone 2: SDE (Full-Time) - CURRENT ROLE */}
+            <div style={{ display: "flex", width: "100%", justifyContent: "flex-start", position: "relative" }} className="kk-milestone-row">
+              {/* Road Dot */}
+              <div style={{
+                position: "absolute",
+                left: "50%",
+                top: 30,
+                width: 20,
+                height: 20,
+                borderRadius: "50%",
+                background: c.clay,
+                border: `4px solid ${c.paper}`,
+                transform: "translateX(-50%)",
+                zIndex: 2,
+                boxShadow: `0 0 0 6px rgba(164,89,47,0.3)`
+              }} />
+
+              {/* Card Container (Left side on desktop, full width on mobile) */}
+              <div style={{ width: "45%" }} className="kk-milestone-card-container">
+                <Reveal>
+                  <div style={{
+                    background: c.paper,
+                    border: `1px solid ${c.line}`,
+                    borderRadius: 16,
+                    padding: 28,
+                    boxShadow: "0 8px 30px rgba(42,39,30,0.06)",
+                    position: "relative"
+                  }}>
+                    {/* Role Tag */}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 10 }}>
+                      <span style={{
+                        background: c.mossDeep,
+                        color: c.paper,
+                        fontSize: 10,
+                        fontWeight: 600,
+                        letterSpacing: 1.5,
+                        ...mono,
+                        padding: "4px 8px",
+                        borderRadius: 4,
+                        textTransform: "uppercase"
+                      }}>
+                        Full-Time
+                      </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, ...mono, fontSize: 12, color: c.inkFaint }}>
+                        <Calendar size={13} />
+                        Apr 2026 - Present
+                      </div>
+                    </div>
+
+                    <h3 style={{ ...serif, fontSize: 22, fontWeight: 600, marginTop: 14, color: c.ink }}>
+                      Software Development Engineer (SDE)
+                    </h3>
+                    <div style={{ color: c.clay, fontWeight: 600, marginTop: 4, fontSize: 14, ...mono }}>
+                      OnePlaceSolar (OPS)
+                    </div>
+
+                    <p style={{ color: c.inkSoft, fontSize: 14.5, lineHeight: 1.6, marginTop: 14, marginBottom: 18 }}>
+                      Scaling the core automation infrastructure. Responsible for building complex project template mappings (PV, Battery, hybrid configurations) and backend integrations.
+                    </p>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
+                      {[
+                        "Developed robust template engines for PV/Battery layout logic",
+                        "Designed secure FastAPI, Flask APIs and managed AWS S3 uploads",
+                        "Optimized background compilation and document assembly speeds"
+                      ].map((item, idx) => (
+                        <div key={idx} style={{ display: "flex", gap: 8, fontSize: 13.5, color: c.inkSoft, lineHeight: 1.4 }}>
+                          <span style={{ color: c.clay }}>▸</span>
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <ChipRow items={["Python", "FastAPI", "Flask", "React", "MongoDB", "AWS S3"]} bg="rgba(164,89,47,0.08)" fg={c.clay} />
+                  </div>
+                </Reveal>
+              </div>
             </div>
-            <div style={{ marginTop: 22 }}>
-              <ChipRow items={["Python", "Flask", "FastAPI", "PyMuPDF", "PDF-Lib", "React", "MongoDB", "AWS S3"]} />
+
+            {/* Milestone 1: SDE Intern */}
+            <div style={{ display: "flex", width: "100%", justifyContent: "flex-end", position: "relative" }} className="kk-milestone-row select-right">
+              {/* Road Dot */}
+              <div style={{
+                position: "absolute",
+                left: "50%",
+                top: 30,
+                width: 20,
+                height: 20,
+                borderRadius: "50%",
+                background: c.mossDeep,
+                border: `4px solid ${c.paper}`,
+                transform: "translateX(-50%)",
+                zIndex: 2,
+                boxShadow: `0 0 0 6px rgba(60,68,50,0.2)`
+              }} />
+
+              {/* Card Container (Right side on desktop, full width on mobile) */}
+              <div style={{ width: "45%" }} className="kk-milestone-card-container">
+                <Reveal>
+                  <div style={{
+                    background: c.paper,
+                    border: `1px solid ${c.line}`,
+                    borderRadius: 16,
+                    padding: 28,
+                    boxShadow: "0 8px 30px rgba(42,39,30,0.06)",
+                    position: "relative"
+                  }}>
+                    {/* Role Tag */}
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 10 }}>
+                      <span style={{
+                        background: c.moss,
+                        color: c.paper,
+                        fontSize: 10,
+                        fontWeight: 600,
+                        letterSpacing: 1.5,
+                        ...mono,
+                        padding: "4px 8px",
+                        borderRadius: 4,
+                        textTransform: "uppercase"
+                      }}>
+                        Internship
+                      </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: 6, ...mono, fontSize: 12, color: c.inkFaint }}>
+                        <Calendar size={13} />
+                        Jan 2026 - Apr 2026
+                      </div>
+                    </div>
+
+                    <h3 style={{ ...serif, fontSize: 22, fontWeight: 600, marginTop: 14, color: c.ink }}>
+                      Software Development Engineer Intern
+                    </h3>
+                    <div style={{ color: c.clay, fontWeight: 600, marginTop: 4, fontSize: 14, ...mono }}>
+                      OnePlaceSolar (OPS)
+                    </div>
+
+                    <p style={{ color: c.inkSoft, fontSize: 14.5, lineHeight: 1.6, marginTop: 14, marginBottom: 18 }}>
+                      Built and automated PDF permitting tools and dynamic BOM calculation routines. Set up layout overlay parameters to embed roof diagrams and equipment specification cards.
+                    </p>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
+                      {[
+                        "Programmed automated engineering permit generation in pure code",
+                        "Constructed dynamic BOM calculation logic using engineering matrices",
+                        "Implemented layouts overlays for electrical drawings and roof maps"
+                      ].map((item, idx) => (
+                        <div key={idx} style={{ display: "flex", gap: 8, fontSize: 13.5, color: c.inkSoft, lineHeight: 1.4 }}>
+                          <span style={{ color: c.moss }}>▸</span>
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
+                      <ChipRow items={["Python", "PyMuPDF", "PDF-Lib", "React", "MongoDB"]} bg="rgba(86,96,71,0.08)" fg={c.mossDeep} />
+
+                      {/* View Certificate Button */}
+                      <button
+                        onClick={() => setShowCertificate(true)}
+                        style={{
+                          background: c.gold,
+                          color: c.paper,
+                          border: "none",
+                          borderRadius: 6,
+                          padding: "8px 14px",
+                          fontSize: 12,
+                          ...mono,
+                          cursor: "pointer",
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          boxShadow: "0 2px 6px rgba(169,132,54,0.3)",
+                          transition: "background 0.2s"
+                        }}
+                        onMouseEnter={(e) => e.currentTarget.style.background = "#92712D"}
+                        onMouseLeave={(e) => e.currentTarget.style.background = c.gold}
+                      >
+                        <Award size={14} /> Certificate
+                      </button>
+                    </div>
+                  </div>
+                </Reveal>
+              </div>
             </div>
+
           </div>
-        </Reveal>
+        </div>
       </div>
+
+      {/* Internship Certificate Modal */}
+      <AnimatePresence>
+        {showCertificate && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              background: "rgba(42,39,30,0.6)",
+              backdropFilter: "blur(4px)",
+              zIndex: 1000,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 24
+            }}
+            onClick={() => setShowCertificate(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
+              style={{
+                background: "#FAF7F0", // Premium parchment color
+                width: "100%",
+                maxWidth: 780,
+                borderRadius: 12,
+                boxShadow: "0 20px 50px rgba(0,0,0,0.3)",
+                border: "16px solid #FAF7F0", // Double border container
+                position: "relative",
+                cursor: "default"
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Outer Thin Border */}
+              <div style={{
+                border: `2px solid ${c.gold}`,
+                padding: "32px 40px",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center"
+              }}>
+                {/* Close Button */}
+                <button
+                  onClick={() => setShowCertificate(false)}
+                  style={{
+                    position: "absolute",
+                    top: 12,
+                    right: 12,
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    color: c.inkSoft
+                  }}
+                >
+                  <X size={20} />
+                </button>
+
+                {/* Ribbon / Seal representation */}
+                <div style={{
+                  width: 50,
+                  height: 50,
+                  borderRadius: "50%",
+                  background: c.gold,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#FAF7F0",
+                  marginBottom: 16,
+                  boxShadow: "0 4px 10px rgba(169,132,54,0.3)"
+                }}>
+                  <Award size={26} />
+                </div>
+
+                {/* Company & Certificate Title */}
+                <h4 style={{ ...mono, fontSize: 12, color: c.mossDeep, letterSpacing: 3, textTransform: "uppercase", margin: 0 }}>
+                  OnePlaceSolar (OPS)
+                </h4>
+
+                <h2 style={{ ...serif, fontSize: 28, fontStyle: "italic", color: c.ink, margin: "10px 0 20px 0", fontWeight: 500 }}>
+                  Certificate of Internship Completion
+                </h2>
+
+                <p style={{ ...mono, fontSize: 11, color: c.inkFaint, textTransform: "uppercase", letterSpacing: 1.5, margin: 0 }}>
+                  This is proudly presented to
+                </p>
+
+                <h1 style={{ ...serif, fontSize: 36, color: c.clay, margin: "12px 0 16px 0", fontWeight: 600 }}>
+                  Keshav Kashyap
+                </h1>
+
+                <p style={{ color: c.inkSoft, fontSize: 14.5, lineHeight: 1.7, maxWidth: 540, margin: "0 auto 28px" }}>
+                  For outstanding contribution, dedication, and professional excellence displayed during their tenure as a <strong style={{ color: c.ink }}>Software Development Engineer Intern</strong> from January 2026 to April 2026.
+                </p>
+
+                {/* Signature details */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, width: "100%", maxWidth: 480, marginTop: 12, borderTop: `1px solid ${c.line}`, paddingTop: 18 }}>
+                  <div>
+                    <div style={{ ...serif, fontStyle: "italic", fontSize: 16, color: c.ink, height: 26 }}>OnePlaceSolar Tech</div>
+                    <div style={{ ...mono, fontSize: 10, color: c.inkFaint, textTransform: "uppercase", letterSpacing: 1, marginTop: 4 }}>Tech Lead, OPS</div>
+                  </div>
+                  <div>
+                    <div style={{ ...serif, fontStyle: "italic", fontSize: 16, color: c.ink, height: 26 }}>Authorized HR</div>
+                    <div style={{ ...mono, fontSize: 10, color: c.inkFaint, textTransform: "uppercase", letterSpacing: 1, marginTop: 4 }}>Human Resources</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* CSS adjustments for mobile styling of the road timeline */}
+      <style>{`
+        @media (max-width: 800px) {
+          .kk-road-track {
+            left: 32px !important;
+            transform: none !important;
+          }
+          .kk-milestone-row {
+            justify-content: flex-start !important;
+            padding-left: 64px !important;
+            box-sizing: border-box !important;
+          }
+          .kk-milestone-row.select-right {
+            justify-content: flex-start !important;
+          }
+          .kk-milestone-card-container {
+            width: 100% !important;
+          }
+          .kk-milestone-row > div:first-child {
+            left: 32px !important;
+            transform: translateX(-50%) !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

@@ -8,7 +8,7 @@ export default function Navbar() {
         <div style={{ ...mono, fontSize: 14, border: `1px solid ${c.lineStrong}`, padding: "6px 10px" }}>KK</div>
         <div style={{ display: "flex", gap: 36 }}>
           {["About", "Experience", "Work", "Skills", "Contact"].map((l) => (
-            <a key={l} href={`#${l.toLowerCase()}`} className="kk-navlink" style={{ ...mono, fontSize: 12, letterSpacing: 1, textTransform: "uppercase", color: c.inkSoft }}>
+            <a key={l} href={`#${l.toLowerCase()}`} className="kk-navlink" style={{ ...mono, fontSize: 12, letterSpacing: 1, textTransform: "uppercase", color: c.inkSoft, textDecoration: "none" }}>
               {l}
             </a>
           ))}
