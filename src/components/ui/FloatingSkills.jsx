@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useMemo } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { skillGroups } from "../../data/portfolioData";
 
-function SwarmIcon({ skill, mouseX, mouseY, isHovering, isDocked }) {
+function SwarmIcon({ skill, mouseX, mouseY, isHovering, isDocked, isHidden }) {
   const x = useMotionValue(skill.homeX);
   const y = useMotionValue(skill.homeY);
 
@@ -12,12 +12,18 @@ function SwarmIcon({ skill, mouseX, mouseY, isHovering, isDocked }) {
   useEffect(() => {
     let animationFrame;
     const updatePosition = () => {
-      if (isDocked) {
+      if (isHidden) {
+        // Fall down off screen!
+        const w = typeof window !== 'undefined' ? window.innerWidth : 1200;
+        const h = typeof window !== 'undefined' ? window.innerHeight : 800;
+        // Spread them out at the bottom
+        x.set(w * 0.1 + Math.random() * (w * 0.8));
+        y.set(h + 200 + Math.random() * 500);
+      } else if (isDocked) {
         // Dock exactly to the center of the placeholder div in Skills.jsx
         const targetEl = document.getElementById(`skill-tag-${skill.name}`);
         if (targetEl) {
           const rect = targetEl.getBoundingClientRect();
-          // Centered relative to viewport (since FloatingSkills is fixed positioned)
           x.set(rect.left + rect.width / 2 - skill.size / 2);
           y.set(rect.top + rect.height / 2 - skill.size / 2);
         } else {
@@ -35,10 +41,11 @@ function SwarmIcon({ skill, mouseX, mouseY, isHovering, isDocked }) {
     };
     updatePosition();
     return () => cancelAnimationFrame(animationFrame);
-  }, [mouseX, mouseY, isHovering, isDocked, x, y, skill]);
+  }, [mouseX, mouseY, isHovering, isDocked, isHidden, x, y, skill]);
 
   return (
     <motion.div
+      layoutId={`swarm-${skill.name}`}
       style={{
         position: "absolute",
         left: 0,
@@ -48,22 +55,27 @@ function SwarmIcon({ skill, mouseX, mouseY, isHovering, isDocked }) {
         color: skill.color,
         fontSize: skill.size,
         pointerEvents: "none",
-        zIndex: 10,
-        opacity: isDocked ? 0.95 : (isHovering ? 0.6 : 0.2), // Brighten up when docked
+        zIndex: 10
       }}
-      animate={isDocked ? { rotate: 0 } : { rotate: [0, 10, -10, 0] }} // Straighten up when docked
-      transition={isDocked ? { type: "spring", stiffness: 100, damping: 20 } : {
-        duration: 4 + Math.random() * 3,
-        repeat: Infinity,
-        ease: "easeInOut"
+      animate={{
+        rotate: isDocked ? 0 : [0, 10, -10, 0],
+        opacity: isDocked ? 0.95 : (isHovering ? 0.6 : 0.2)
       }}
+      transition={
+        isDocked 
+          ? { type: "spring", stiffness: 100, damping: 20 } 
+          : {
+              rotate: { duration: 4 + Math.random() * 3, repeat: Infinity, ease: "easeInOut" },
+              opacity: { duration: 0.3 }
+            }
+      }
     >
       <skill.Icon />
     </motion.div>
   );
 }
 
-export default function FloatingSkills({ isDocked }) {
+export default function FloatingSkills({ isDocked, isHidden }) {
   const mouseX = useMotionValue(typeof window !== "undefined" ? window.innerWidth / 2 : 0);
   const mouseY = useMotionValue(typeof window !== "undefined" ? window.innerHeight / 2 : 0);
   const [isHovering, setIsHovering] = useState(false);
@@ -80,7 +92,7 @@ export default function FloatingSkills({ isDocked }) {
         homeY: h * (0.05 + Math.random() * 0.9),
         clusterX: (Math.random() - 0.5) * 140,
         clusterY: (Math.random() - 0.5) * 140,
-        stiffness: 100, // Slightly more springy for smooth docking flight
+        stiffness: 100,
         damping: 15 + index * 6,
       };
     });
@@ -105,6 +117,9 @@ export default function FloatingSkills({ isDocked }) {
       clearTimeout(timeoutRef.current);
     };
   }, [mouseX, mouseY]);
+
+  // If hidden, we unmount them so Playground can take over their layoutIds!
+  if (isHidden) return null;
 
   return (
     <div style={{ position: "fixed", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 3 }}>

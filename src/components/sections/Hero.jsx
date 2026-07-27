@@ -1,7 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useMotionValue, useSpring } from "framer-motion";
+import { useMotionValue, useSpring, motion, AnimatePresence } from "framer-motion";
 import DocLayer from "../ui/DocLayer";
 import { c, mono, serif } from "../../data/theme";
+
+const WORDS = [
+  "AI-driven",
+  "intelligent",
+  "full-stack",
+  "scalable",
+];
 
 export default function Hero() {
   const heroRef = useRef(null);
@@ -10,9 +17,23 @@ export default function Hero() {
   const smx = useSpring(mx, { stiffness: 60, damping: 15 });
   const smy = useSpring(my, { stiffness: 60, damping: 15 });
   const [reduced, setReduced] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
     setReduced(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const handleResize = () => setIsMobile(window.innerWidth < 800);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % WORDS.length);
+    }, 2500);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearInterval(interval);
+    };
   }, []);
 
   const handleMouseMove = (e) => {
@@ -36,14 +57,16 @@ export default function Hero() {
       style={{ position: "relative", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "100px 32px 60px", overflow: "hidden" }}
     >
       {!reduced && (
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }}>
-          <DocLayer mx={smx} my={smy} depth={22} rotate={-6} imageSrc="/project_images/ezy.webp" box={{ width: 260, height: 170, top: "14%", right: "8%" }} />
-          <DocLayer mx={smx} my={smy} depth={14} rotate={4} imageSrc="/project_images/" box={{ width: 240, height: 150, top: "22%", right: "16%" }} />
-          <DocLayer mx={smx} my={smy} depth={30} rotate={9} imageSrc="/project_images/image3.png" box={{ width: 220, height: 140, top: "34%", right: "4%", opacity: 0.85 }} />
+        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0, display: "flex", justifyContent: "center" }}>
+          <div style={{ position: "relative", width: "100%", maxWidth: 1080, height: "100%" }}>
+            <DocLayer mx={smx} my={smy} depth={22} rotate={-6} imageSrc="/project_images/ezy.webp" box={{ width: isMobile ? 180 : 260, height: isMobile ? 120 : 170, top: isMobile ? "58%" : "14%", right: isMobile ? "2%" : "0%" }} />
+            <DocLayer mx={smx} my={smy} depth={14} rotate={4} imageSrc="/project_images/qra.webp" box={{ width: isMobile ? 160 : 240, height: isMobile ? 100 : 150, top: isMobile ? "61%" : "22%", right: isMobile ? "48%" : "15%" }} />
+            <DocLayer mx={smx} my={smy} depth={30} rotate={9} imageSrc="/project_images/sers.webp" box={{ width: isMobile ? 150 : 220, height: isMobile ? 95 : 140, top: isMobile ? "69%" : "34%", right: isMobile ? "-5%" : "-5%", opacity: 0.85 }} />
+          </div>
         </div>
       )}
 
-      <div style={{ position: "relative", zIndex: 2, maxWidth: 1080, margin: "0 auto", width: "100%" }}>
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 1080, margin: "0 auto", width: "100%" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: "40px", alignItems: "center" }} className="kk-grid-collapse">
           <div>
             <div style={{ ...mono, display: "flex", alignItems: "center", gap: 10, fontSize: 12, letterSpacing: 2, textTransform: "uppercase", color: c.clay, marginBottom: 26 }}>
@@ -53,23 +76,39 @@ export default function Hero() {
 
             <h1 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1.05, fontSize: "clamp(32px, 5vw, 62px)", maxWidth: 750, color: c.ink }}>
               Keshav Kashyap<br />
-              builds systems that <em style={{ fontStyle: "italic", fontWeight: 500, color: c.mossDeep }}>replace</em> the paperwork.
+              Building,{" "}
+              <span style={{ display: "inline-block", width: "5.5em", position: "relative", verticalAlign: "bottom" }}>
+                <AnimatePresence>
+                  <motion.span
+                    key={wordIndex}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    style={{ position: "absolute", left: 0, bottom: 0 }}
+                  >
+                    <em style={{ fontStyle: "italic", fontWeight: 500, color: c.mossDeep }}>{WORDS[wordIndex]}</em>
+                  </motion.span>
+                </AnimatePresence>
+              </span>{" "}
+              systems.
             </h1>
 
             <p style={{ marginTop: 26, fontSize: 18, color: c.inkSoft, maxWidth: 560, lineHeight: 1.6 }}>
-              I'm a Full Stack Software Engineer passionate about building scalable, high-performance web applications and systems. Currently exploring machine learning and artificial intelligence to build smarter, data-driven products.
+              I'm a Full Stack Software Engineer passionate about building high-performance web applications. Currently exploring AI and machine learning to build smarter products.
             </p>
 
-            <div style={{ marginTop: 56, display: "flex", gap: 48, flexWrap: "wrap", borderTop: `1px solid ${c.line}`, paddingTop: 24 }}>
+            <div style={{ marginTop: 56, display: "flex", gap: 24, flexWrap: "wrap", paddingTop: 24 }}>
               {[["7th", "Semester, Integrated MCA"], ["80K+", "YouTube subscribers"], ["8+", "Shipped projects"]].map(([num, label]) => (
-                <div key={label}>
-                  <div style={{ ...serif, fontStyle: "italic", fontSize: 26, color: c.mossDeep }}>{num}</div>
-                  <div style={{ ...mono, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: c.inkFaint, marginTop: 4 }}>{label}</div>
+                <div key={label} style={{ background: "rgba(255,255,255,0.4)", border: `1px solid ${c.line}`, padding: "20px 24px", borderRadius: 16, backdropFilter: "blur(10px)", flex: "1 1 140px" }}>
+                  <div style={{ ...serif, fontStyle: "italic", fontSize: 32, color: c.mossDeep, marginBottom: 4 }}>{num}</div>
+                  <div style={{ ...mono, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: c.inkSoft, lineHeight: 1.4 }}>{label}</div>
                 </div>
               ))}
             </div>
           </div>
-          <div style={{ display: "flex", justifyContent: "center", pointerEvents: "none" }}>
+          
+          <div style={{ position: "relative", display: "flex", justifyContent: "center", pointerEvents: "none" }}>
             <img
               src="/keshav.png"
               alt="Keshav Kashyap"

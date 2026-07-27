@@ -9,8 +9,11 @@ import Experience from "../components/sections/Experience";
 import Projects from "../components/sections/Projects";
 import Skills from "../components/sections/Skills";
 import Beyond from "../components/sections/Beyond";
+import Reviews from "../components/sections/Reviews";
+import Playground from "../components/sections/Playground";
 import Contact from "../components/sections/Contact";
 import FloatingSkills from "../components/ui/FloatingSkills";
+import ImagesBadgeDemoTwo from "../components/images-badge-demo-2";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
@@ -19,27 +22,53 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Portfolio() {
   const [isHoveringSkills, setIsHoveringSkills] = useState(false);
+  const [isHoveringPlayground, setIsHoveringPlayground] = useState(false);
   const lastMousePos = useRef({ x: 0, y: 0 });
 
-  // Coordinate-based mouse hover detection for the technical skills section running on requestAnimationFrame
+  // Coordinate-based mouse hover detection for sections running on requestAnimationFrame
   useEffect(() => {
     let animationFrame;
     const checkHover = () => {
+      const clientX = lastMousePos.current.x;
+      const clientY = lastMousePos.current.y;
+
+      // Check Skills section
       const section = document.getElementById("skills");
       if (section) {
         const rect = section.getBoundingClientRect();
-        const clientX = lastMousePos.current.x;
-        const clientY = lastMousePos.current.y;
-        const isInsideSection = (
-          clientX >= rect.left &&
-          clientX <= rect.right &&
-          clientY >= rect.top &&
-          clientY <= rect.bottom
+        setIsHoveringSkills(
+          clientX >= rect.left && clientX <= rect.right &&
+          clientY >= rect.top && clientY <= rect.bottom
         );
-        setIsHoveringSkills(isInsideSection);
       } else {
         setIsHoveringSkills(false);
       }
+
+      // Check Playground pool section
+      const poolEl = document.getElementById("skill-pool-area");
+      const sectionEl = document.getElementById("playground");
+      
+      if (poolEl && sectionEl) {
+        const pRect = poolEl.getBoundingClientRect();
+        const sRect = sectionEl.getBoundingClientRect();
+
+        setIsHoveringPlayground(prev => {
+          if (!prev) {
+            // Trigger when entering pool
+            if (clientX >= pRect.left && clientX <= pRect.right && clientY >= pRect.top && clientY <= pRect.bottom) {
+              return true;
+            }
+            return false;
+          } else {
+            // Release when leaving the ENTIRE playground section (add buffer to prevent glitching on borders)
+            if (clientY < sRect.top - 50 || clientY > sRect.bottom + 50 || clientX < sRect.left - 50 || clientX > sRect.right + 50) {
+              return false;
+            }
+            return true;
+          }
+        });
+      }
+
       animationFrame = requestAnimationFrame(checkHover);
     };
 
@@ -81,7 +110,7 @@ export default function Portfolio() {
   return (
     <LayoutGroup>
       <div style={{ ...sans, background: c.bg, color: c.ink, overflowX: "hidden", minHeight: "100vh" }}>
-        <FloatingSkills isDocked={isHoveringSkills} />
+        <FloatingSkills isDocked={isHoveringSkills} isHidden={isHoveringPlayground} />
 
         {/* Standard Portfolio Styles */}
         <style>{`
@@ -144,11 +173,12 @@ export default function Portfolio() {
       `}</style>
 
         <Navbar />
-        {/* Sections above Skills have zIndex: 5 (swarm floats behind them) */}
-        <div style={{ position: "relative", zIndex: 5 }}>
+        {/* Removed strict zIndex: 5 so that cursor can float BETWEEN backgrounds and content */}
+        <div style={{ position: "relative" }}>
           <Hero />
           <About />
           <Experience />
+          {/* <ImagesBadgeDemoTwo /> */}
           <Projects />
         </div>
 
@@ -160,6 +190,8 @@ export default function Portfolio() {
         {/* Sections below Skills have zIndex: 5 (swarm floats behind them) */}
         <div style={{ position: "relative", zIndex: 5 }}>
           <Beyond />
+          <Reviews />
+          <Playground isActive={isHoveringPlayground} />
           <Contact />
           <Footer />
         </div>

@@ -3,23 +3,26 @@ import SectionHead from "../ui/SectionHead";
 import Reveal from "../ui/Reveal";
 import ChipRow from "../ui/ChipRow";
 import { c, mono, serif } from "../../data/theme";
-import { Award, Briefcase, Calendar, X, Eye } from "lucide-react";
+import { Award, Briefcase, Calendar, X, Eye, GraduationCap } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Experience() {
   const [showCertificate, setShowCertificate] = useState(false);
 
   return (
-    <section id="experience" style={{ padding: "100px 0", background: c.bgDeep, position: "relative" }}>
-      <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 32px" }}>
+    <section id="experience" style={{ padding: "100px 0", position: "relative" }}>
+      {/* Background container: zIndex 2 puts it above root background but behind the cursor (3) */}
+      <div style={{ position: "absolute", inset: 0, background: c.bgDeep, zIndex: 2, pointerEvents: "none" }} />
+      {/* Main content div: zIndex 10 puts it above the cursor (3) */}
+      <div style={{ position: "relative", zIndex: 10, maxWidth: 1080, margin: "0 auto", padding: "0 32px" }}>
         <SectionHead index="02" title="Career" em="road" />
 
         <div style={{ position: "relative", marginTop: 60, paddingBottom: 40 }}>
-          {/* The Road Visual Track */}
+          {/* The Vertical Road Track */}
           <div
             style={{
               position: "absolute",
-              left: "50%",
+              left: 70, // Centers on the 140px left column
               top: 0,
               bottom: 0,
               width: 24,
@@ -28,7 +31,8 @@ export default function Experience() {
               borderRadius: 12,
               border: `2px solid ${c.lineStrong}`,
               boxShadow: "inset 0 0 10px rgba(0,0,0,0.5)",
-              overflow: "hidden"
+              overflow: "hidden",
+              zIndex: 1
             }}
             className="kk-road-track"
           >
@@ -43,27 +47,48 @@ export default function Experience() {
           </div>
 
           {/* Timeline Milestones */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 80, position: "relative" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 60, position: "relative" }}>
 
             {/* Milestone 2: SDE (Full-Time) - CURRENT ROLE */}
-            <div style={{ display: "flex", width: "100%", justifyContent: "flex-start", position: "relative" }} className="kk-milestone-row">
-              {/* Road Dot */}
-              <div style={{
-                position: "absolute",
-                left: "50%",
-                top: 30,
-                width: 20,
-                height: 20,
-                borderRadius: "50%",
-                background: c.clay,
-                border: `4px solid ${c.paper}`,
-                transform: "translateX(-50%)",
-                zIndex: 2,
-                boxShadow: `0 0 0 6px rgba(164,89,47,0.3)`
-              }} />
+            <div style={{ display: "grid", gridTemplateColumns: "140px 1fr", gap: 48, position: "relative" }} className="kk-milestone-row">
+              
+              {/* Left Column: Icon and Date */}
+              <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 20 }} className="kk-milestone-left">
+                {/* Milestone Dot/Icon */}
+                <div style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: "50%",
+                  background: c.mossDeep,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: c.paper,
+                  zIndex: 2,
+                  boxShadow: `0 0 0 10px ${c.bgDeep}`
+                }} className="kk-milestone-dot">
+                  <Briefcase size={20} strokeWidth={2} />
+                </div>
+                
+                {/* Date under the icon */}
+                <div style={{ 
+                  textAlign: "center", 
+                  marginTop: 24,
+                  background: c.paper,
+                  padding: "8px 16px",
+                  borderRadius: 20,
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  border: `1px solid ${c.line}`,
+                  position: "relative",
+                  zIndex: 5
+                }} className="kk-milestone-date">
+                  <div style={{ ...mono, fontSize: 11, color: c.clay, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 2 }}>Present</div>
+                  <div style={{ ...serif, fontSize: 15, color: c.ink, fontWeight: 600 }}>Apr 2026</div>
+                </div>
+              </div>
 
-              {/* Card Container (Left side on desktop, full width on mobile) */}
-              <div style={{ width: "45%" }} className="kk-milestone-card-container">
+              {/* Card Container */}
+              <div className="kk-milestone-card-container">
                 <Reveal>
                   <div style={{
                     background: c.paper,
@@ -125,24 +150,45 @@ export default function Experience() {
             </div>
 
             {/* Milestone 1: SDE Intern */}
-            <div style={{ display: "flex", width: "100%", justifyContent: "flex-end", position: "relative" }} className="kk-milestone-row select-right">
-              {/* Road Dot */}
-              <div style={{
-                position: "absolute",
-                left: "50%",
-                top: 30,
-                width: 20,
-                height: 20,
-                borderRadius: "50%",
-                background: c.mossDeep,
-                border: `4px solid ${c.paper}`,
-                transform: "translateX(-50%)",
-                zIndex: 2,
-                boxShadow: `0 0 0 6px rgba(60,68,50,0.2)`
-              }} />
+            <div style={{ display: "grid", gridTemplateColumns: "140px 1fr", gap: 48, position: "relative" }} className="kk-milestone-row">
+              
+              {/* Left Column: Icon and Date */}
+              <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center", paddingTop: 20 }} className="kk-milestone-left">
+                {/* Milestone Dot/Icon */}
+                <div style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: "50%",
+                  background: c.clay,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: c.paper,
+                  zIndex: 2,
+                  boxShadow: `0 0 0 10px ${c.bgDeep}`
+                }} className="kk-milestone-dot">
+                  <GraduationCap size={22} strokeWidth={2} />
+                </div>
+                
+                {/* Date under the icon */}
+                <div style={{ 
+                  textAlign: "center", 
+                  marginTop: 24,
+                  background: c.paper,
+                  padding: "8px 16px",
+                  borderRadius: 20,
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
+                  border: `1px solid ${c.line}`,
+                  position: "relative",
+                  zIndex: 5
+                }} className="kk-milestone-date">
+                  <div style={{ ...mono, fontSize: 11, color: c.clay, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", marginBottom: 2 }}>Jan 2026</div>
+                  <div style={{ ...serif, fontSize: 15, color: c.ink, fontWeight: 600 }}>Apr 2026</div>
+                </div>
+              </div>
 
-              {/* Card Container (Right side on desktop, full width on mobile) */}
-              <div style={{ width: "45%" }} className="kk-milestone-card-container">
+              {/* Card Container */}
+              <div className="kk-milestone-card-container">
                 <Reveal>
                   <div style={{
                     background: c.paper,
@@ -354,23 +400,35 @@ export default function Experience() {
       <style>{`
         @media (max-width: 800px) {
           .kk-road-track {
-            left: 32px !important;
-            transform: none !important;
+            left: 40px !important;
           }
           .kk-milestone-row {
-            justify-content: flex-start !important;
-            padding-left: 64px !important;
-            box-sizing: border-box !important;
+            grid-template-columns: 80px 1fr !important;
+            gap: 16px !important;
           }
-          .kk-milestone-row.select-right {
-            justify-content: flex-start !important;
+          .kk-milestone-left {
+            padding-top: 10px !important;
+          }
+          .kk-milestone-dot {
+            width: 36px !important;
+            height: 36px !important;
+            box-shadow: 0 0 0 6px #FAF7F0 !important;
+          }
+          .kk-milestone-dot svg {
+            width: 16px !important;
+            height: 16px !important;
+          }
+          .kk-milestone-date {
+            margin-top: 16px !important;
+          }
+          .kk-milestone-date > div:first-child {
+            font-size: 9px !important;
+          }
+          .kk-milestone-date > div:last-child {
+            font-size: 14px !important;
           }
           .kk-milestone-card-container {
             width: 100% !important;
-          }
-          .kk-milestone-row > div:first-child {
-            left: 32px !important;
-            transform: translateX(-50%) !important;
           }
         }
       `}</style>
