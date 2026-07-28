@@ -25,7 +25,7 @@ export default function Hero() {
     const handleResize = () => setIsMobile(window.innerWidth < 800);
     handleResize();
     window.addEventListener("resize", handleResize);
-    
+
     const interval = setInterval(() => {
       setWordIndex((prev) => (prev + 1) % WORDS.length);
     }, 2500);
@@ -57,11 +57,11 @@ export default function Hero() {
       style={{ position: "relative", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", padding: "100px 32px 60px", overflow: "hidden" }}
     >
       {!reduced && (
-        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0, display: "flex", justifyContent: "center" }}>
+        <div style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1, display: "flex", justifyContent: "center" }}>
           <div style={{ position: "relative", width: "100%", maxWidth: 1080, height: "100%" }}>
             <DocLayer mx={smx} my={smy} depth={22} rotate={-6} imageSrc="/project_images/ezy.webp" box={{ width: isMobile ? 180 : 260, height: isMobile ? 120 : 170, top: isMobile ? "58%" : "14%", right: isMobile ? "2%" : "0%" }} />
-            <DocLayer mx={smx} my={smy} depth={14} rotate={4} imageSrc="/project_images/qra.webp" box={{ width: isMobile ? 160 : 240, height: isMobile ? 100 : 150, top: isMobile ? "61%" : "22%", right: isMobile ? "48%" : "15%" }} />
-            <DocLayer mx={smx} my={smy} depth={30} rotate={9} imageSrc="/project_images/sers.webp" box={{ width: isMobile ? 150 : 220, height: isMobile ? 95 : 140, top: isMobile ? "69%" : "34%", right: isMobile ? "-5%" : "-5%", opacity: 0.85 }} />
+            <DocLayer mx={smx} my={smy} depth={14} rotate={4} imageSrc="/project_images/qra.webp" box={{ width: isMobile ? 160 : 240, height: isMobile ? 100 : 150, top: isMobile ? "61%" : "25%", right: isMobile ? "48%" : "10%" }} />
+            <DocLayer mx={smx} my={smy} depth={30} rotate={9} imageSrc="/project_images/sers.webp" box={{ width: isMobile ? 150 : 220, height: isMobile ? 95 : 140, top: isMobile ? "69%" : "34%", right: isMobile ? "-5%" : "-8%", opacity: 0.85 }} />
           </div>
         </div>
       )}
@@ -76,20 +76,22 @@ export default function Hero() {
 
             <h1 style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, letterSpacing: "-0.03em", lineHeight: 1.05, fontSize: "clamp(32px, 5vw, 62px)", maxWidth: 750, color: c.ink }}>
               Keshav Kashyap<br />
-              Building,{" "}
-              <span style={{ display: "inline-block", width: "5.5em", position: "relative", verticalAlign: "bottom" }}>
-                <AnimatePresence>
-                  <motion.span
-                    key={wordIndex}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.3 }}
-                    style={{ position: "absolute", left: 0, bottom: 0 }}
-                  >
-                    <em style={{ fontStyle: "italic", fontWeight: 500, color: c.mossDeep }}>{WORDS[wordIndex]}</em>
-                  </motion.span>
-                </AnimatePresence>
+              <span style={{ whiteSpace: "nowrap" }}>
+                Building,{" "}
+                <span style={{ display: "inline-block", width: "6.8em", position: "relative", verticalAlign: "bottom" }}>
+                  <AnimatePresence>
+                    <motion.span
+                      key={wordIndex}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                      style={{ position: "absolute", left: 0, bottom: 0, whiteSpace: "nowrap" }}
+                    >
+                      <em style={{ fontStyle: "italic", fontWeight: 500, color: c.mossDeep }}>{WORDS[wordIndex]}</em>
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
               </span>{" "}
               systems.
             </h1>
@@ -107,7 +109,7 @@ export default function Hero() {
               ))}
             </div>
           </div>
-          
+
           <div style={{ position: "relative", display: "flex", justifyContent: "center", pointerEvents: "none" }}>
             <img
               src="/keshav.png"

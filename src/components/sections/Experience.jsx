@@ -127,14 +127,15 @@ export default function Experience() {
                     </div>
 
                     <p style={{ color: c.inkSoft, fontSize: 14.5, lineHeight: 1.6, marginTop: 14, marginBottom: 18 }}>
-                      Scaling the core automation infrastructure. Responsible for building complex project template mappings (PV, Battery, hybrid configurations) and backend integrations.
+                      Led backend and automation systems development, focusing on internal CRM modules, U.S. solar permit package automation, and dynamic PDF generation.
                     </p>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
                       {[
-                        "Developed robust template engines for PV/Battery layout logic",
-                        "Designed secure FastAPI, Flask APIs and managed AWS S3 uploads",
-                        "Optimized background compilation and document assembly speeds"
+                        "Developed solar permit CRM modules and dynamic PDF automation using Python (PyMuPDF) to generate U.S. permit plan-sets (PV & Battery)",
+                        "Automated structural tables, electrical calculations, roof details, and equipment schedules, significantly reducing manual effort",
+                        "Built scalable internal tools and API pipelines using Flask, React.js, PostgreSQL, and JavaScript",
+                        "Optimized databases, managed storage uploads, resolved production bugs, and collaborated on deployment workflows"
                       ].map((item, idx) => (
                         <div key={idx} style={{ display: "flex", gap: 8, fontSize: 13.5, color: c.inkSoft, lineHeight: 1.4 }}>
                           <span style={{ color: c.clay }}>▸</span>
@@ -143,7 +144,7 @@ export default function Experience() {
                       ))}
                     </div>
 
-                    <ChipRow items={["Python", "FastAPI", "Flask", "React", "MongoDB", "AWS S3"]} bg="rgba(164,89,47,0.08)" fg={c.clay} />
+                    <ChipRow items={["Python", "Flask", "React.js", "PostgreSQL", "PyMuPDF (Fitz)", "JavaScript", "HTML", "CSS", "Git", "REST APIs"]} bg="rgba(164,89,47,0.08)" fg={c.clay} />
                   </div>
                 </Reveal>
               </div>
@@ -220,21 +221,21 @@ export default function Experience() {
                     </div>
 
                     <h3 style={{ ...serif, fontSize: 22, fontWeight: 600, marginTop: 14, color: c.ink }}>
-                      Software Development Engineer Intern
+                      Software Development Engineer (SDE Intern)
                     </h3>
                     <div style={{ color: c.clay, fontWeight: 600, marginTop: 4, fontSize: 14, ...mono }}>
                       OnePlaceSolar (OPS)
                     </div>
 
                     <p style={{ color: c.inkSoft, fontSize: 14.5, lineHeight: 1.6, marginTop: 14, marginBottom: 18 }}>
-                      Built and automated PDF permitting tools and dynamic BOM calculation routines. Set up layout overlay parameters to embed roof diagrams and equipment specification cards.
+                      Contributed to internal CRM development and automated workflows, gaining hands-on experience in building features and integrating backend systems.
                     </p>
 
                     <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 20 }}>
                       {[
-                        "Programmed automated engineering permit generation in pure code",
-                        "Constructed dynamic BOM calculation logic using engineering matrices",
-                        "Implemented layouts overlays for electrical drawings and roof maps"
+                        "Assisted in developing the internal Solar CRM platform and backend REST APIs using Flask",
+                        "Created frontend components with React.js and integrated with PostgreSQL database queries",
+                        "Fixed production bugs and implemented new features within Agile workflow practices"
                       ].map((item, idx) => (
                         <div key={idx} style={{ display: "flex", gap: 8, fontSize: 13.5, color: c.inkSoft, lineHeight: 1.4 }}>
                           <span style={{ color: c.moss }}>▸</span>
@@ -244,7 +245,7 @@ export default function Experience() {
                     </div>
 
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-                      <ChipRow items={["Python", "PyMuPDF", "PDF-Lib", "React", "MongoDB"]} bg="rgba(86,96,71,0.08)" fg={c.mossDeep} />
+                      <ChipRow items={["Python", "Flask", "React.js", "PostgreSQL", "JavaScript", "Git"]} bg="rgba(86,96,71,0.08)" fg={c.mossDeep} />
 
                       {/* View Certificate Button */}
                       <button
@@ -376,7 +377,7 @@ export default function Experience() {
                 </h1>
 
                 <p style={{ color: c.inkSoft, fontSize: 14.5, lineHeight: 1.7, maxWidth: 540, margin: "0 auto 28px" }}>
-                  For outstanding contribution, dedication, and professional excellence displayed during their tenure as a <strong style={{ color: c.ink }}>Software Development Engineer Intern</strong> from January 2026 to April 2026.
+                  For outstanding contribution, dedication, and professional excellence displayed during their tenure as a <strong style={{ color: c.ink }}>Software Development Engineer (SDE Intern)</strong> from January 2026 to April 2026.
                 </p>
 
                 {/* Signature details */}

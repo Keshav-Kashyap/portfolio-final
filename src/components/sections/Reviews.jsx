@@ -106,7 +106,7 @@ export default function Reviews() {
   return (
     <section id="reviews" style={{ padding: "100px 0", overflow: "hidden", width: "100%", maxWidth: "100vw" }}>
       <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 32px", marginBottom: 60 }}>
-        <SectionHead index="06" title="Client" em="reviews" />
+        <SectionHead index="07" title="Client" em="reviews" />
       </div>
 
       {/* Marquee Wrapper */}

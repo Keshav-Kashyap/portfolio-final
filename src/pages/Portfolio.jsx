@@ -7,11 +7,13 @@ import Hero from "../components/sections/Hero";
 import About from "../components/sections/About";
 import Experience from "../components/sections/Experience";
 import Projects from "../components/sections/Projects";
+import ProjectDeck from "../components/sections/ProjectDeck";
 import Skills from "../components/sections/Skills";
 import Beyond from "../components/sections/Beyond";
 import Reviews from "../components/sections/Reviews";
 import Playground from "../components/sections/Playground";
 import Contact from "../components/sections/Contact";
+import PeerReviews from "../components/sections/PeerReviews";
 import FloatingSkills from "../components/ui/FloatingSkills";
 import ImagesBadgeDemoTwo from "../components/images-badge-demo-2";
 import { gsap } from "gsap";
@@ -47,7 +49,7 @@ export default function Portfolio() {
       // Check Playground pool section
       const poolEl = document.getElementById("skill-pool-area");
       const sectionEl = document.getElementById("playground");
-      
+
       if (poolEl && sectionEl) {
         const pRect = poolEl.getBoundingClientRect();
         const sRect = sectionEl.getBoundingClientRect();
@@ -174,12 +176,13 @@ export default function Portfolio() {
 
         <Navbar />
         {/* Removed strict zIndex: 5 so that cursor can float BETWEEN backgrounds and content */}
-        <div style={{ position: "relative" }}>
+        <div style={{ position: "relative", zIndex: 5 }}>
           <Hero />
           <About />
           <Experience />
           {/* <ImagesBadgeDemoTwo /> */}
-          <Projects />
+          {/* <Projects /> */}
+          <ProjectDeck />
         </div>
 
         {/* Skills Section has zIndex: 1 (swarm floats on top) */}
@@ -189,9 +192,11 @@ export default function Portfolio() {
 
         {/* Sections below Skills have zIndex: 5 (swarm floats behind them) */}
         <div style={{ position: "relative", zIndex: 5 }}>
-          <Beyond />
-          <Reviews />
+          {/* <Beyond /> */}
+
           <Playground isActive={isHoveringPlayground} />
+          {/* <Reviews /> */}
+          <PeerReviews />
           <Contact />
           <Footer />
         </div>

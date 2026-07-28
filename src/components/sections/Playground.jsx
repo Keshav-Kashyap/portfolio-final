@@ -14,14 +14,14 @@ const CATEGORIES = [
   { id: "ai", label: "AI", match: ["AI & Core"] },
 ];
 
-const allSkills = skillGroups.flatMap(g => 
+const allSkills = skillGroups.flatMap(g =>
   g.items.map(item => ({ ...item, groupLabel: g.label }))
 );
 
 export default function Playground({ isActive }) {
   const [placed, setPlaced] = useState({}); // { frontend: ["React", "HTML5"], backend: ["Node.js"] }
   const [wrong, setWrong] = useState(null);
-  const [dragOffsets, setDragOffsets] = useState({}); 
+  const [dragOffsets, setDragOffsets] = useState({});
   const dropRefs = useRef({});
   const boardRef = useRef(null); // The unified game board!
 
@@ -96,7 +96,7 @@ export default function Playground({ isActive }) {
       left: 10 + Math.random() * 80, // 10% to 90%
       top: 10 + Math.random() * 70, // 10% to 80%
     }));
-  }, [isActive]); 
+  }, [isActive]);
 
   const isSkillPlaced = (skillName) => {
     return Object.values(placed).flat().includes(skillName);
@@ -105,19 +105,19 @@ export default function Playground({ isActive }) {
   return (
     <section id="playground" style={{ padding: "100px 0", position: "relative" }}>
       <div style={{ maxWidth: 1080, margin: "0 auto", padding: "0 32px" }}>
-        <SectionHead index="07" title="System" em="architecture" />
-        
+        <SectionHead index="05" title="Play" em="ground" />
+
         <p style={{ ...mono, fontSize: 13, color: c.clay, textAlign: "center", marginBottom: 60 }}>
           SORT THE SKILLS INTO THEIR CORRECT ARCHITECTURE CATEGORIES
         </p>
 
         {/* UNIFIED GAME BOARD - EVERYTHING is trapped inside this Box */}
-        <div 
+        <div
           ref={boardRef}
           style={{
-            background: c.paper, 
-            border: `1px solid ${c.line}`, 
-            borderRadius: 32, 
+            background: c.paper,
+            border: `1px solid ${c.line}`,
+            borderRadius: 32,
             padding: "40px 24px",
             position: "relative",
             boxShadow: "inset 0 4px 20px rgba(0,0,0,0.02), 0 20px 40px rgba(0,0,0,0.05)",
@@ -129,9 +129,9 @@ export default function Playground({ isActive }) {
             {CATEGORIES.map((cat) => {
               const bucketSkills = placed[cat.id] || [];
               const isFilled = bucketSkills.length > 0;
-              
+
               return (
-                <div 
+                <div
                   key={`zone-${cat.id}`}
                   ref={(el) => dropRefs.current[cat.id] = el}
                   style={{
@@ -153,7 +153,7 @@ export default function Playground({ isActive }) {
                   <div style={{ ...mono, color: isFilled ? c.ink : c.inkFaint, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", marginBottom: 16, fontWeight: isFilled ? 700 : 400, textAlign: "center" }}>
                     {cat.label}
                   </div>
-                  
+
                   {/* Placed Skills stack neatly inside this bucket */}
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 8, justifyContent: "center" }}>
                     <AnimatePresence>
@@ -211,12 +211,12 @@ export default function Playground({ isActive }) {
             <div style={{ position: "absolute", top: -16, left: "50%", transform: "translateX(-50%)", ...mono, fontSize: 10, color: c.inkFaint, letterSpacing: 2 }}>
               SKILL POOL
             </div>
-            
+
             <div id="skill-pool-area" style={{ position: "absolute", inset: 0, marginTop: 24 }}>
               <AnimatePresence>
                 {isActive && allSkills.map((skill, index) => {
-                  if (isSkillPlaced(skill.name)) return null; 
-                  
+                  if (isSkillPlaced(skill.name)) return null;
+
                   const isWrong = wrong === skill.name;
                   const scatter = randomScatter[index] || { rotate: 0, left: 50, top: 50 };
                   const currentOffset = dragOffsets[skill.name] || { x: 0, y: 0 };
@@ -267,7 +267,7 @@ export default function Playground({ isActive }) {
                       }}
                     >
                       <skill.Icon size={40} />
-                      
+
                       <AnimatePresence>
                         {isWrong && (
                           <motion.div
@@ -324,7 +324,7 @@ export default function Playground({ isActive }) {
                 <div style={{ ...serif, fontSize: 24, fontWeight: 600 }}>System Fully Configured!</div>
                 <div style={{ ...mono, fontSize: 12, opacity: 0.8, letterSpacing: 1, marginTop: 4 }}>ALL SKILLS CATEGORIZED</div>
               </div>
-              <button 
+              <button
                 onClick={() => {
                   setPlaced({});
                   setDragOffsets({});
