@@ -112,9 +112,12 @@ export default function Hero() {
 
           <div style={{ position: "relative", display: "flex", justifyContent: "center", pointerEvents: "none" }}>
             <img
-              src="/keshav.png"
+              src="/keshav.webp"
               alt="Keshav Kashyap"
               draggable="false"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               style={{ width: "100%", maxWidth: 360, borderRadius: 24, userSelect: "none", pointerEvents: "none", WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)", maskImage: "linear-gradient(to bottom, black 70%, transparent 100%)" }}
             />
           </div>
