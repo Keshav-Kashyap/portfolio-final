@@ -194,7 +194,7 @@ export default function Portfolio() {
         <div style={{ position: "relative", zIndex: 5 }}>
           {/* <Beyond /> */}
 
-          <Playground isActive={isHoveringPlayground} />
+          {/* <Playground isActive={isHoveringPlayground} /> */}
           {/* <Reviews /> */}
           <PeerReviews />
           <Contact />

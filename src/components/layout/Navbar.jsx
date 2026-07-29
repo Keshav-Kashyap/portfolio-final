@@ -148,7 +148,7 @@ export default function Navbar() {
 
           {/* Navigation Links */}
           <div className="kk-nav-links">
-            {["About", "Experience", "Work", "Skills", "Playground"].map((l) => (
+            {["About", "Experience", "Work", "Skills"].map((l) => (
               <a
                 key={l}
                 href={`#${l.toLowerCase()}`}

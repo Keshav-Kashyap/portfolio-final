@@ -47,20 +47,20 @@ export default function useProjectsTimeline(containerRef, cardRefs, totalCards, 
           const prevInner = prevCard?.querySelector(".projects-stack-card-inner");
           const stepStart = `step-${index}`;
 
-          // 1. Slide up the entering card
+          // 1. Slide in the entering card from the right
           tl.fromTo(
             card,
-            { y: "100vh" },
-            { y: 0, ease: "none" },
+            { x: "100vw", y: 0 },
+            { x: 0, ease: "none" },
             stepStart
           );
 
-          // 2. Shrink, translate up and fade the previous card's inner content
+          // 2. Shrink, translate left and fade the previous card's inner content
           if (prevInner) {
             tl.fromTo(
               prevInner,
-              { scale: 1, opacity: 1, y: 0 },
-              { scale: 0.94, opacity: 0.6, y: -20, ease: "none" },
+              { scale: 1, opacity: 1, x: 0 },
+              { scale: 0.94, opacity: 0.6, x: -20, ease: "none" },
               stepStart
             );
           }

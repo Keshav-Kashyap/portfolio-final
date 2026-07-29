@@ -296,12 +296,12 @@ export default function ProjectDeck({
                       y: isCurrentActive(card)
                         ? 0
                         : isAnyCardActive()
-                          ? "calc(var(--card-height) * 0.96)"
+                          ? card.config.y * 0.35
                           : card.config.y,
                       x: isCurrentActive(card)
-                        ? 0
+                        ? "-40%"
                         : isAnyCardActive()
-                          ? offsetX * 0.35
+                          ? `calc(var(--card-width) * 0.96 + ${offsetX * 0.35}px)`
                           : offsetX,
                       rotate: isCurrentActive(card)
                         ? 0
@@ -340,13 +340,12 @@ export default function ProjectDeck({
                     </div>
 
                     <div className="mt-4 w-full flex flex-col justify-end flex-grow overflow-hidden">
-                      <motion.h2
-                        layoutId={card.title + "title"}
+                      <h2
                         style={{ ...serif }}
-                        className="font-bold text-left text-lg md:text-2xl leading-tight"
+                        className="font-bold text-left text-lg md:text-2xl leading-snug py-1"
                       >
                         {card.title}
-                      </motion.h2>
+                      </h2>
 
                       <AnimatePresence mode="popLayout">
                         {active?.title === card.title && (
