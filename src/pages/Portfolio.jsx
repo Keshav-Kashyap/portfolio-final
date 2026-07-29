@@ -25,7 +25,18 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Portfolio() {
   const [isHoveringSkills, setIsHoveringSkills] = useState(false);
   const [isHoveringPlayground, setIsHoveringPlayground] = useState(false);
+  const [isHoveringPool, setIsHoveringPool] = useState(false);
+  const [placedSkills, setPlacedSkills] = useState([]);
+  const [gameState, setGameState] = useState("idle");
   const lastMousePos = useRef({ x: 0, y: 0 });
+
+  const handlePlacedChange = (flatPlaced) => {
+    setPlacedSkills(flatPlaced);
+  };
+
+  const handleGameStateChange = (state) => {
+    setGameState(state);
+  };
 
   // Coordinate-based mouse hover detection for sections running on requestAnimationFrame
   useEffect(() => {
@@ -54,21 +65,27 @@ export default function Portfolio() {
         const pRect = poolEl.getBoundingClientRect();
         const sRect = sectionEl.getBoundingClientRect();
 
+        // 1. Is hover in pool area? (Controls floating skills morph)
+        const inPool = (
+          clientX >= pRect.left && clientX <= pRect.right &&
+          clientY >= pRect.top && clientY <= pRect.bottom
+        );
+        setIsHoveringPool(inPool);
+
+        // 2. Is hover in playground section (with buffer)? (Controls game reset on scroll away)
         setIsHoveringPlayground(prev => {
           if (!prev) {
-            // Trigger when entering pool
-            if (clientX >= pRect.left && clientX <= pRect.right && clientY >= pRect.top && clientY <= pRect.bottom) {
-              return true;
-            }
+            if (inPool) return true;
             return false;
           } else {
-            // Release when leaving the ENTIRE playground section (add buffer to prevent glitching on borders)
             if (clientY < sRect.top - 50 || clientY > sRect.bottom + 50 || clientX < sRect.left - 50 || clientX > sRect.right + 50) {
               return false;
             }
             return true;
           }
         });
+      } else {
+        setIsHoveringPool(false);
       }
 
       animationFrame = requestAnimationFrame(checkHover);
@@ -109,10 +126,12 @@ export default function Portfolio() {
     };
   }, []);
 
+  const isSwarmHidden = isHoveringPool || gameState !== "idle";
+
   return (
     <LayoutGroup>
       <div style={{ ...sans, background: c.bg, color: c.ink, overflowX: "hidden", minHeight: "100vh" }}>
-        <FloatingSkills isDocked={isHoveringSkills} isHidden={isHoveringPlayground} />
+        <FloatingSkills isDocked={isHoveringSkills} isHidden={isSwarmHidden} placedSkills={placedSkills} />
 
         {/* Standard Portfolio Styles */}
         <style>{`
@@ -190,13 +209,21 @@ export default function Portfolio() {
           <Skills />
         </div>
 
-        {/* Sections below Skills have zIndex: 5 (swarm floats behind them) */}
+        {/* Playground section (zIndex: 5 - swarm floats behind) */}
         <div style={{ position: "relative", zIndex: 5 }}>
-          {/* <Beyond /> */}
+          <Playground
+            isActive={isHoveringPlayground}
+            isHoveringPool={isHoveringPool}
+            onPlacedChange={handlePlacedChange}
+            onGameStateChange={handleGameStateChange}
+          />
+        </div>
 
-          {/* <Playground isActive={isHoveringPlayground} /> */}
-          {/* <Reviews /> */}
-          <PeerReviews />
+        {/* PeerReviews section (zIndex: auto - swarm floats between background/photos) */}
+        <PeerReviews />
+
+        {/* Contact & Footer (zIndex: 5 - swarm floats behind) */}
+        <div style={{ position: "relative", zIndex: 5 }}>
           <Contact />
           <Footer />
         </div>

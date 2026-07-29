@@ -45,9 +45,9 @@ export default function PeerReviews() {
   return (
     <section id="peer-reviews" style={{ padding: "100px 0", position: "relative" }}>
       {/* Background layer for section */}
-      <div style={{ position: "absolute", inset: 0, background: c.bg, zIndex: 0, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", inset: 0, background: c.bg, zIndex: -1, pointerEvents: "none" }} />
 
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 1080, margin: "0 auto", padding: "0 32px", width: "100%" }}>
+      <div style={{ position: "relative", zIndex: 5, maxWidth: 1080, margin: "0 auto", padding: "0 32px", width: "100%" }}>
         <SectionHead index="08" title="Featured" em="testimonials" />
 
         <div style={{ marginTop: 40 }}>

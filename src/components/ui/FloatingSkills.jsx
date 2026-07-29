@@ -62,12 +62,13 @@ function SwarmIcon({ skill, mouseX, mouseY, isHovering, isDocked, isHidden }) {
         opacity: isDocked ? 0.95 : (isHovering ? 0.6 : 0.2)
       }}
       transition={
-        isDocked 
-          ? { type: "spring", stiffness: 100, damping: 20 } 
+        isDocked
+          ? { type: "spring", stiffness: 100, damping: 20, layout: { type: "tween", duration: 0 } }
           : {
-              rotate: { duration: 4 + Math.random() * 3, repeat: Infinity, ease: "easeInOut" },
-              opacity: { duration: 0.3 }
-            }
+            layout: { type: "tween", duration: 0 },
+            rotate: { duration: 4 + Math.random() * 3, repeat: Infinity, ease: "easeInOut" },
+            opacity: { duration: 0.3 }
+          }
       }
     >
       <skill.Icon />
