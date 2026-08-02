@@ -12,7 +12,7 @@ export default function Experience() {
   return (
     <section id="experience" style={{ padding: "100px 0", position: "relative" }}>
       {/* Background container: zIndex 2 puts it above root background but behind the cursor (3) */}
-      <div style={{ position: "absolute", inset: 0, background: c.bgDeep, zIndex: 2, pointerEvents: "none" }} />
+      <div style={{ position: "absolute", inset: 0, background: c.bgDeep, zIndex: 2, pointerEvents: "none", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }} />
       {/* Main content div: zIndex 10 puts it above the cursor (3) */}
       <div style={{ position: "relative", zIndex: 10, maxWidth: 1080, margin: "0 auto", padding: "0 32px" }}>
         <SectionHead index="02" title="Career" em="road" />

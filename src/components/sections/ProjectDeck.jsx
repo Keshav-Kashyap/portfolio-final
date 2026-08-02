@@ -131,8 +131,8 @@ export default function ProjectDeck({
   spring = defaultSpring,
   activeScale = 1.15,
 }) {
-  // Take first 5 projects
-  const cardsData = projects.slice(0, 5);
+  // Show all projects
+  const cardsData = projects;
 
   const cards = cardsData.map((project, index) => {
     const config = cardConfigs[index % cardConfigs.length];
@@ -147,7 +147,7 @@ export default function ProjectDeck({
       config: {
         y: config.y,
         rotate: config.rotate,
-        zIndex: config.zIndex,
+        zIndex: index + 2,
       },
     };
   });
@@ -197,7 +197,7 @@ export default function ProjectDeck({
 
   return (
     <section id="project-deck" style={{ padding: "100px 0", position: "relative", overflow: "hidden" }}>
-      
+
       {/* Background SVG Curve Marquee */}
       <div style={{ position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", opacity: 0.7 }}>
         <svg
@@ -219,8 +219,8 @@ export default function ProjectDeck({
             <textPath
               href="#deck-bg-curve"
               className="font-normal"
-              style={{ 
-                fill: c.ink, 
+              style={{
+                fill: c.ink,
                 opacity: 0.15,
                 ...mono
               }}
@@ -239,19 +239,19 @@ export default function ProjectDeck({
 
       <style>{`
         .kk-deck-container {
-          --card-width: 190px;
-          --card-height: 270px;
+          --card-width: 210px;
+          --card-height: 330px;
         }
         @media (min-width: 600px) {
           .kk-deck-container {
-            --card-width: 250px;
-            --card-height: 350px;
+            --card-width: 270px;
+            --card-height: 410px;
           }
         }
         @media (min-width: 1024px) {
           .kk-deck-container {
-            --card-width: 340px;
-            --card-height: 450px;
+            --card-width: 350px;
+            --card-height: 500px;
           }
         }
       `}</style>
@@ -268,14 +268,16 @@ export default function ProjectDeck({
             ref={ref}
             onClick={() => setActive(null)}
             className="relative mx-auto flex items-center justify-center kk-deck-container"
-            style={{ 
-              width: "100%", 
+            style={{
+              width: "100%",
               height: "var(--card-height)",
               position: "relative"
             }}
           >
             {cards.map((card, index) => {
-              const offsetX = (index - middle) * spacing;
+              const cardsCount = cards.length;
+              const finalSpacing = cardsCount > 5 ? (spacing * 4) / (cardsCount - 1) : spacing;
+              const offsetX = (index - middle) * finalSpacing;
               const isLightCard = card.className.includes("bg-[#FAF7F0]");
               const btnTextColor = isLightCard ? "#2A271E" : "#FAF7F0";
               const btnBgColor = isLightCard ? "rgba(42, 39, 30, 0.08)" : "rgba(255, 255, 255, 0.18)";
@@ -335,7 +337,7 @@ export default function ProjectDeck({
                     )}
                   >
                     {/* Project Image Skeleton Preview */}
-                    <div className="h-44 w-full rounded-xl overflow-hidden bg-neutral-900/10 relative border border-black/5 flex-shrink-0">
+                    <div className="h-28 sm:h-36 lg:h-44 w-full rounded-xl overflow-hidden bg-neutral-900/10 relative border border-black/5 flex-shrink-0">
                       <img src={card.image} alt={card.title} className="h-full w-full object-cover" />
                     </div>
 
@@ -384,36 +386,70 @@ export default function ProjectDeck({
 
                             {/* Action CTA Buttons */}
                             <div className="flex gap-3">
-                              <a
-                                href={card.github}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                style={{
-                                  color: btnTextColor,
-                                  background: btnBgColor,
-                                  border: btnBorder,
-                                  ...mono
-                                }}
-                                className="px-3 py-1.5 rounded-lg text-[10px] font-semibold tracking-wider uppercase transition-colors duration-250 hover:opacity-80"
-                              >
-                                Source
-                              </a>
-                              <a
-                                href={card.live}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                style={{
-                                  color: btnTextColor,
-                                  background: btnBgColor,
-                                  border: btnBorder,
-                                  ...mono
-                                }}
-                                className="px-3 py-1.5 rounded-lg text-[10px] font-semibold tracking-wider uppercase transition-colors duration-250 hover:opacity-80"
-                              >
-                                Launch →
-                              </a>
+                              {card.github ? (
+                                <a
+                                  href={card.github}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{
+                                    color: btnTextColor,
+                                    background: btnBgColor,
+                                    border: btnBorder,
+                                    ...mono
+                                  }}
+                                  className="px-3 py-1.5 rounded-lg text-[10px] font-semibold tracking-wider uppercase transition-colors duration-250 hover:opacity-80"
+                                >
+                                  Source
+                                </a>
+                              ) : (
+                                <span
+                                  style={{
+                                    color: btnTextColor,
+                                    background: btnBgColor,
+                                    border: btnBorder,
+                                    opacity: 0.5,
+                                    cursor: "not-allowed",
+                                    pointerEvents: "none",
+                                    ...mono
+                                  }}
+                                  className="px-3 py-1.5 rounded-lg text-[10px] font-semibold tracking-wider uppercase"
+                                >
+                                  Private
+                                </span>
+                              )}
+                              {card.live ? (
+                                <a
+                                  href={card.live}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  style={{
+                                    color: btnTextColor,
+                                    background: btnBgColor,
+                                    border: btnBorder,
+                                    ...mono
+                                  }}
+                                  className="px-3 py-1.5 rounded-lg text-[10px] font-semibold tracking-wider uppercase transition-colors duration-250 hover:opacity-80"
+                                >
+                                  Launch →
+                                </a>
+                              ) : (
+                                <span
+                                  style={{
+                                    color: btnTextColor,
+                                    background: btnBgColor,
+                                    border: btnBorder,
+                                    opacity: 0.5,
+                                    cursor: "not-allowed",
+                                    pointerEvents: "none",
+                                    ...mono
+                                  }}
+                                  className="px-3 py-1.5 rounded-lg text-[10px] font-semibold tracking-wider uppercase"
+                                >
+                                  Development
+                                </span>
+                              )}
                             </div>
                           </motion.div>
                         )}

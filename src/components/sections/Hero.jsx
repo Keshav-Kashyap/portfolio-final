@@ -100,7 +100,51 @@ export default function Hero() {
               I'm a Full Stack Software Engineer passionate about building high-performance web applications. Currently exploring AI and machine learning to build smarter products.
             </p>
 
-            <div style={{ marginTop: 56, display: "flex", gap: 24, flexWrap: "wrap", paddingTop: 24 }}>
+            <div style={{ marginTop: 32 }}>
+              <a
+                href="/Keshav_Kashyap_Resume_new.pdf"
+                download="Keshav_Kashyap_Resume.pdf"
+                style={{
+                  ...mono,
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  letterSpacing: "0.5px",
+                  textTransform: "uppercase",
+                  padding: "14px 28px",
+                  background: c.mossDeep,
+                  border: `1px solid ${c.mossDeep}`,
+                  color: c.paper,
+                  borderRadius: 8,
+                  boxShadow: "0 4px 14px rgba(60, 68, 50, 0.2)",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = c.ink;
+                  e.currentTarget.style.borderColor = c.ink;
+                  e.currentTarget.style.transform = "translateY(-2px)";
+                  e.currentTarget.style.boxShadow = "0 6px 20px rgba(42, 39, 30, 0.25)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = c.mossDeep;
+                  e.currentTarget.style.borderColor = c.mossDeep;
+                  e.currentTarget.style.transform = "none";
+                  e.currentTarget.style.boxShadow = "0 4px 14px rgba(60, 68, 50, 0.2)";
+                }}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 2 }}>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+                Download Resume
+              </a>
+            </div>
+
+            <div style={{ marginTop: 40, display: "flex", gap: 24, flexWrap: "wrap", paddingTop: 16 }}>
               {[["7th", "Semester, Integrated MCA"], ["80K+", "YouTube subscribers"], ["8+", "Shipped projects"]].map(([num, label]) => (
                 <div key={label} style={{ background: "rgba(255,255,255,0.4)", border: `1px solid ${c.line}`, padding: "20px 24px", borderRadius: 16, backdropFilter: "blur(10px)", flex: "1 1 140px" }}>
                   <div style={{ ...serif, fontStyle: "italic", fontSize: 32, color: c.mossDeep, marginBottom: 4 }}>{num}</div>

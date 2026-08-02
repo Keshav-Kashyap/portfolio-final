@@ -353,11 +353,22 @@ export default function Playground({ isActive, isHoveringPool, onPlacedChange, o
                                   style={{
                                     display: "flex",
                                     flexDirection: "column",
-                                    alignItems: "center",
-                                    color: skill.color
+                                    alignItems: "center"
                                   }}
                                 >
-                                  <skill.Icon size={24} />
+                                  <img
+                                    src={skill.icon}
+                                    alt={skill.name}
+                                    draggable="false"
+                                    style={{
+                                      width: 24,
+                                      height: 24,
+                                      borderRadius: "20%",
+                                      objectFit: "contain",
+                                      pointerEvents: "none",
+                                      userSelect: "none"
+                                    }}
+                                  />
                                 </motion.div>
                               );
                             })}
@@ -498,7 +509,6 @@ export default function Playground({ isActive, isHoveringPool, onPlacedChange, o
                   x: currentOffset.x,
                   y: skillsDropped ? currentOffset.y : -250, // Fall from top
                   rotate: scatter.rotate,
-                  color: skill.color,
                   opacity: skillsDropped ? 1 : 0,
                   scale: skillsDropped ? 1 : 0.5,
                   filter: "none",
@@ -514,7 +524,7 @@ export default function Playground({ isActive, isHoveringPool, onPlacedChange, o
                   x: [currentOffset.x - 10, currentOffset.x + 10, currentOffset.x - 10, currentOffset.x + 10, currentOffset.x],
                   y: currentOffset.y,
                   rotate: scatter.rotate,
-                  color: "#EF4444",
+                  filter: "drop-shadow(0 0 8px #EF4444)",
                   opacity: 1,
                   transition: { duration: 0.4 }
                 };
@@ -542,10 +552,21 @@ export default function Playground({ isActive, isHoveringPool, onPlacedChange, o
                       justifyContent: "center",
                       cursor: isDraggable ? "grab" : "default",
                       zIndex: 10,
-                      color: skill.color,
                     }}
                   >
-                    <skill.Icon size={40} />
+                    <img
+                      src={skill.icon}
+                      alt={skill.name}
+                      draggable="false"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: "20%",
+                        objectFit: "contain",
+                        pointerEvents: "none",
+                        userSelect: "none"
+                      }}
+                    />
 
                     <AnimatePresence>
                       {isWrong && (

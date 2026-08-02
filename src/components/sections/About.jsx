@@ -24,19 +24,19 @@ export default function About() {
 
           {/* Right Column: Premium Bento Grid */}
           <Reveal delay={0.1} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, alignContent: "center" }}>
-            
+
             {/* Bento 1: Large Creator Card */}
             <div style={{ gridColumn: "1 / -1", background: "rgba(255,255,255,0.4)", backdropFilter: "blur(12px)", border: `1px solid ${c.line}`, borderRadius: 24, padding: 32, position: "relative", overflow: "hidden" }}>
               <div style={{ position: "relative", zIndex: 2 }}>
                 <span style={{ ...mono, fontSize: 11, textTransform: "uppercase", letterSpacing: 1.5, color: c.mossDeep, fontWeight: 600 }}>Creator Impact</span>
                 <h4 style={{ ...serif, fontSize: 48, fontWeight: 600, color: c.ink, margin: "8px 0 4px 0", letterSpacing: "-0.02em" }}>80K+</h4>
-                
+
                 <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 16, flexWrap: "wrap", marginTop: 4 }}>
                   <p style={{ color: c.inkSoft, fontSize: 14, margin: 0, maxWidth: 220 }}>Community members learning tech and engineering together.</p>
-                  
-                  <a 
-                    href="https://www.youtube.com/@keshavkashyap" 
-                    target="_blank" 
+
+                  <a
+                    href="https://www.youtube.com/@keshav_talk"
+                    target="_blank"
                     rel="noopener noreferrer"
                     style={{
                       background: c.ink,
@@ -57,7 +57,7 @@ export default function About() {
                   >
                     Visit Channel
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                      <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                   </a>
                 </div>
@@ -71,7 +71,7 @@ export default function About() {
               <div>
                 <span style={{ ...mono, fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: c.gold, fontWeight: 600 }}>Education</span>
                 <h4 style={{ fontSize: 20, fontWeight: 600, color: c.ink, margin: "12px 0 4px 0", letterSpacing: "-0.01em" }}>Integrated MCA</h4>
-                <p style={{ color: c.inkSoft, fontSize: 13, margin: 0, lineHeight: 1.5 }}>7th Semester <br/>RBS MTC (AKTU)</p>
+                <p style={{ color: c.inkSoft, fontSize: 13, margin: 0, lineHeight: 1.5 }}>7th Semester <br />RBS MTC (AKTU)</p>
               </div>
             </div>
 
@@ -87,7 +87,7 @@ export default function About() {
           </Reveal>
         </div>
       </div>
-      
+
       {/* Dynamic pulse CSS for dashboard widgets */}
       <style>{`
         @keyframes kk-pulse {

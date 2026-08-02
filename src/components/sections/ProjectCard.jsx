@@ -196,12 +196,24 @@ export default function ProjectCard({ p, isFeatured }) {
             </div>
 
             <div style={{ display: "flex", gap: 12, marginTop: "auto" }}>
-              <a href={p.github} target="_blank" rel="noopener noreferrer" className="premium-btn-github" style={{ height: 38, padding: "0 16px", display: "inline-flex", alignItems: "center", boxSizing: "border-box" }}>
-                <span className="arrow-slide">←</span> Source
-              </a>
-              <a href={p.live} target="_blank" rel="noopener noreferrer" className="premium-btn-live" style={{ height: 38, padding: "0 18px", display: "inline-flex", alignItems: "center", boxSizing: "border-box" }}>
-                Launch <span className="arrow-slide" style={{ marginLeft: 4 }}>→</span>
-              </a>
+              {p.github ? (
+                <a href={p.github} target="_blank" rel="noopener noreferrer" className="premium-btn-github" style={{ height: 38, padding: "0 16px", display: "inline-flex", alignItems: "center", boxSizing: "border-box" }}>
+                  <span className="arrow-slide">←</span> Source
+                </a>
+              ) : (
+                <span className="premium-btn-github" style={{ height: 38, padding: "0 16px", display: "inline-flex", alignItems: "center", boxSizing: "border-box", opacity: 0.5, cursor: "not-allowed", pointerEvents: "none" }}>
+                  Private
+                </span>
+              )}
+              {p.live ? (
+                <a href={p.live} target="_blank" rel="noopener noreferrer" className="premium-btn-live" style={{ height: 38, padding: "0 18px", display: "inline-flex", alignItems: "center", boxSizing: "border-box" }}>
+                  Launch <span className="arrow-slide" style={{ marginLeft: 4 }}>→</span>
+                </a>
+              ) : (
+                <span className="premium-btn-live" style={{ height: 38, padding: "0 18px", display: "inline-flex", alignItems: "center", boxSizing: "border-box", opacity: 0.5, cursor: "not-allowed", pointerEvents: "none" }}>
+                  Development
+                </span>
+              )}
             </div>
           </div>
         </div>

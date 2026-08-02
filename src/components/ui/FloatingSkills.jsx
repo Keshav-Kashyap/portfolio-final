@@ -52,8 +52,8 @@ function SwarmIcon({ skill, mouseX, mouseY, isHovering, isDocked, isHidden }) {
         top: 0,
         x: springX,
         y: springY,
-        color: skill.color,
-        fontSize: skill.size,
+        width: skill.size,
+        height: skill.size,
         pointerEvents: "none",
         zIndex: 10
       }}
@@ -71,7 +71,16 @@ function SwarmIcon({ skill, mouseX, mouseY, isHovering, isDocked, isHidden }) {
           }
       }
     >
-      <skill.Icon />
+      <img
+        src={skill.icon}
+        alt={skill.name}
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "contain",
+          borderRadius: "20%"
+        }}
+      />
     </motion.div>
   );
 }
@@ -89,6 +98,7 @@ export default function FloatingSkills({ isDocked, isHidden }) {
       const h = typeof window !== 'undefined' ? window.innerHeight : 800;
       return {
         ...skill,
+        size: 45,
         homeX: w * (0.05 + Math.random() * 0.9),
         homeY: h * (0.05 + Math.random() * 0.9),
         clusterX: (Math.random() - 0.5) * 140,

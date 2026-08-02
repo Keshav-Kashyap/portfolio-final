@@ -1,6 +1,6 @@
 export const c = {
   bg: "#E3DCC8",
-  bgDeep: "#D6CDB2",
+  bgDeep: "#d6cdb26b",
   paper: "#F4EFE1",
   ink: "#2A271E",
   inkSoft: "#5B5643",
